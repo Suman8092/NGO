@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import {
   FiBookOpen,
   FiCalendar,
@@ -9,6 +9,8 @@ import {
   FiCreditCard,
   FiDroplet,
   FiHeart,
+  FiPause,
+  FiPlay,
   FiShield,
   FiTarget,
   FiUsers
@@ -369,16 +371,55 @@ function CampaignsSection() {
 
 export default function Home() {
   const scope = useRef(null);
+  const heroVideoRef = useRef(null);
+  const [heroPaused, setHeroPaused] = useState(false);
   useGsapReveal(scope);
+
+  const toggleHeroVideo = () => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    if (video.paused) {
+      const playPromise = video.play();
+      if (playPromise?.catch) playPromise.catch(() => {});
+      setHeroPaused(false);
+    } else {
+      video.pause();
+      setHeroPaused(true);
+    }
+  };
 
   return (
     <main ref={scope}>
       <section className="relative min-h-[100svh] overflow-hidden bg-av-night text-av-ivory">
-        <video className="absolute inset-0 h-full w-full object-contain object-center opacity-75" autoPlay muted loop playsInline preload="metadata">
+        <video ref={heroVideoRef} className="absolute inset-0 h-full w-full object-cover object-center opacity-90 md:object-contain md:opacity-75" autoPlay muted loop playsInline preload="metadata">
           <source src={brand.heroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,24,7,.9),rgba(16,24,7,.42)_58%,rgba(16,24,7,.78)),linear-gradient(180deg,rgba(16,24,7,.18),rgba(16,24,7,.78))]" />
-        <div className="section-shell relative flex min-h-[100svh] items-center pb-10 pt-28 md:pb-12 md:pt-32">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,24,7,.1)_0%,rgba(16,24,7,.16)_34%,rgba(16,24,7,.54)_62%,rgba(16,24,7,.94)_100%)] md:bg-[linear-gradient(90deg,rgba(16,24,7,.9),rgba(16,24,7,.42)_58%,rgba(16,24,7,.78)),linear-gradient(180deg,rgba(16,24,7,.18),rgba(16,24,7,.78))]" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-av-night via-av-night/72 to-transparent md:hidden" />
+
+        <div className="section-shell relative flex min-h-[100svh] items-end pb-7 pt-28 md:hidden">
+          <div className="w-full">
+            <h1 className="max-w-[22rem] font-display text-[clamp(3rem,13.4vw,4.9rem)] font-light leading-[.96] text-av-ivory [text-wrap:balance] drop-shadow-[0_8px_28px_rgba(0,0,0,.45)]">
+              Advancing rural learning, skills, and sustainable growth
+            </h1>
+            <div className="mt-8 grid grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3 [&>div]:w-full">
+              <PrimaryButton to="/stories" variant="light" className="min-h-16 w-full px-8 text-lg font-extrabold" icon={false}>
+                Learn More
+              </PrimaryButton>
+              <button
+                className="grid h-16 w-16 place-items-center rounded-full border border-white/12 bg-av-night/82 text-3xl text-av-ivory shadow-green backdrop-blur-md transition hover:bg-av-green"
+                type="button"
+                aria-label={heroPaused ? "Play hero video" : "Pause hero video"}
+                onClick={toggleHeroVideo}
+              >
+                {heroPaused ? <FiPlay /> : <FiPause />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="section-shell relative hidden min-h-[100svh] items-center pb-12 pt-32 md:flex">
           <div className="max-w-6xl">
             <p className="kicker mb-5 text-av-amber">Every Rural Life Matters</p>
             <h1 className="display-title max-w-6xl text-[clamp(2.75rem,4.8vw,4.6rem)] text-av-ivory">
