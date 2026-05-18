@@ -62,13 +62,13 @@ export default function AboutSection1() {
       className="page-section relative isolate overflow-hidden bg-av-ivory"
     >
       <TimelineContent
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff1e5_48%,#fffaf3_100%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf6_0%,#fff2e8_48%,#fffaf6_100%)]"
         animationNum={0}
         customVariants={fadeIn}
         timelineRef={sectionRef}
       />
       <TimelineContent
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45"
         animationNum={1}
         customVariants={fadeIn}
         timelineRef={sectionRef}

@@ -29,7 +29,7 @@
     margin: 0;
     min-width: 320px;
     color: theme("colors.av.ink");
-    background: linear-gradient(180deg, #fffaf3 0%, #fff1e5 58%, #ffe8d1 100%);
+    background: linear-gradient(180deg, #fffaf6 0%, #fff2e8 58%, #ffe1d0 100%);
     font-family: theme("fontFamily.body");
     text-rendering: geometricPrecision;
     overflow-x: hidden;

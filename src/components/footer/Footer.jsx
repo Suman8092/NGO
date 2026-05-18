@@ -17,7 +17,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#073427] text-av-ivory">
+    <footer className="relative overflow-hidden bg-av-night text-av-ivory">
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] bg-[size:72px_72px] opacity-35" />
       <div className="section-shell relative py-10 sm:py-12 lg:py-16">
         <div className="mb-8 flex flex-col gap-5 border-b border-white/10 pb-8 sm:mb-10 sm:pb-9 md:flex-row md:items-center md:justify-between">

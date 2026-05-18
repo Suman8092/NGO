@@ -30,6 +30,7 @@ import { useGsapReveal } from "../../hooks/useGsapReveal";
 import { brand, images, pathways, stats } from "../../utils/content";
 
 const icons = [FiBookOpen, FiCompass, FiCpu, FiHeart];
+const statIcons = [FiUsers, FiBookOpen, FiTarget, FiCompass];
 
 const galleryPreview = [
   ["Education", "Creative learning", images.creative],
@@ -197,8 +198,8 @@ function campaignMailHref(title) {
 function ApproachSection() {
   return (
     <section id="approach" className="relative isolate overflow-hidden bg-av-ivory py-10 sm:py-12 lg:py-14">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff6eb_52%,#fffaf3_100%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.03)_1px,transparent_1px)] bg-[size:72px_72px] opacity-25" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf6_0%,#fff2e8_52%,#fffaf6_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.03)_1px,transparent_1px)] bg-[size:72px_72px] opacity-25" />
 
       <div className="section-shell">
         <h2 className="text-center text-2xl font-black leading-tight text-av-green sm:text-3xl">
@@ -243,8 +244,8 @@ function DonationSection() {
 
   return (
     <section className="relative isolate flex min-h-[100svh] overflow-hidden bg-av-ivory py-8 sm:py-10 lg:py-12">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff1e5_52%,#fffaf3_100%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf6_0%,#fff2e8_52%,#fffaf6_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
       <div className="flex min-h-[calc(100svh-4rem)] w-full flex-col justify-center px-4 sm:px-6 lg:px-8 2xl:px-10">
         <div className="mx-auto grid w-full max-w-[1720px] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center xl:gap-10">
           <div className="relative min-w-0 overflow-hidden">
@@ -409,13 +410,13 @@ function DonationSectionV2() {
 
   return (
     <section className="relative isolate overflow-hidden bg-av-night py-14 text-av-ivory sm:py-16 lg:py-20">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_12%,rgba(255,138,0,.22),transparent_32%),linear-gradient(135deg,#101807_0%,#19320d_58%,#371006_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_12%,rgba(255,108,25,.22),transparent_32%),linear-gradient(135deg,#0D0D0D_0%,#0D0D0D_58%,#ED0001_100%)]" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] bg-[size:72px_72px] opacity-35" />
 
       <div className="mx-auto grid w-full max-w-[1560px] gap-5 px-4 sm:px-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(410px,.78fr)] lg:px-8 xl:gap-8">
         <div className="relative min-h-[560px] overflow-hidden rounded-card border border-white/10 bg-av-night shadow-green lg:min-h-[640px]">
           <img className="absolute inset-0 h-full w-full object-cover" src={images.classroom} alt="Rural students in a learning session" loading="lazy" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,24,7,.96)_0%,rgba(16,24,7,.8)_44%,rgba(16,24,7,.26)_100%),linear-gradient(180deg,rgba(16,24,7,.18),rgba(16,24,7,.92))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,13,13,.96)_0%,rgba(13,13,13,.8)_44%,rgba(13,13,13,.26)_100%),linear-gradient(180deg,rgba(13,13,13,.18),rgba(13,13,13,.92))]" />
 
           <div className="relative flex min-h-[560px] flex-col justify-end p-5 sm:p-7 lg:min-h-[640px] lg:p-9 xl:p-10">
             <div className="max-w-3xl">
@@ -570,8 +571,8 @@ function DonationSectionV2() {
 function CampaignsSection() {
   return (
     <section id="campaigns" className="relative isolate flex min-h-[100svh] scroll-mt-24 overflow-hidden bg-av-ivory py-8 sm:py-10 lg:py-10">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff5ec_48%,#fffaf3_100%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf6_0%,#fff2e8_48%,#fffaf6_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
       <div className="section-shell flex min-h-[calc(100svh-4rem)] flex-col justify-center">
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div className="max-w-4xl">
@@ -688,8 +689,8 @@ function CampaignsSection() {
 function CampaignsSectionV2() {
   return (
     <section id="campaigns" className="relative isolate overflow-hidden bg-av-ivory py-16 sm:py-20 lg:py-24">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff1e5_48%,#fffaf3_100%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf6_0%,#fff2e8_48%,#fffaf6_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
 
       <div className="section-shell">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,420px)_minmax(0,760px)] lg:items-start lg:justify-between">
@@ -780,7 +781,7 @@ export default function Home() {
         <video ref={heroVideoRef} className="absolute inset-0 h-full w-full object-cover object-center opacity-95" autoPlay muted loop playsInline preload="metadata">
           <source src={brand.heroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,24,7,.1)_0%,rgba(16,24,7,.16)_34%,rgba(16,24,7,.54)_62%,rgba(16,24,7,.94)_100%)] md:bg-[linear-gradient(90deg,rgba(16,24,7,.9),rgba(16,24,7,.42)_58%,rgba(16,24,7,.78)),linear-gradient(180deg,rgba(16,24,7,.18),rgba(16,24,7,.78))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,13,13,.1)_0%,rgba(13,13,13,.16)_34%,rgba(13,13,13,.54)_62%,rgba(13,13,13,.94)_100%)] md:bg-[linear-gradient(90deg,rgba(13,13,13,.9),rgba(13,13,13,.42)_58%,rgba(13,13,13,.78)),linear-gradient(180deg,rgba(13,13,13,.18),rgba(13,13,13,.78))]" />
         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-av-night via-av-night/72 to-transparent md:hidden" />
 
         <div className="relative flex min-h-[100svh] items-end px-4 pb-7 pt-28 md:hidden">
@@ -818,11 +819,26 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="page-section">
-        <div className="section-shell grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((item) => (
-            <StatCounter key={item.label} {...item} />
-          ))}
+      <section className="relative isolate overflow-hidden bg-av-ivory py-10 sm:py-12 lg:py-14">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf6_0%,#fff2e8_52%,#fffaf6_100%)]" />
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.03)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30" />
+
+        <div className="section-shell">
+          <div className="mx-auto mb-7 max-w-3xl text-center">
+            <p className="kicker mb-3 text-av-orange">Impact At A Glance</p>
+            <h2 className="text-2xl font-black leading-tight text-av-night sm:text-3xl">
+              Our 2035 goals
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold leading-6 text-av-bark/72 sm:text-base">
+              Focused targets for learning, skills, mentorship, and long-term rural growth.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((item, index) => (
+              <StatCounter key={item.label} {...item} icon={statIcons[index]} />
+            ))}
+          </div>
         </div>
       </section>
 
