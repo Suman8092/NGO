@@ -1,18 +1,22 @@
 import { useRef, useState } from "react";
 import {
+  FiArrowRight,
   FiBookOpen,
   FiCalendar,
-  FiCamera,
+  FiChevronRight,
   FiCheckCircle,
   FiCompass,
   FiCpu,
   FiCreditCard,
   FiDroplet,
   FiHeart,
+  FiMessageCircle,
   FiPause,
   FiPlay,
+  FiSearch,
   FiShield,
   FiTarget,
+  FiTrendingUp,
   FiUsers
 } from "react-icons/fi";
 import Reveal from "../../components/animations/Reveal";
@@ -21,6 +25,7 @@ import GlassCard from "../../components/cards/GlassCard";
 import ImageCard from "../../components/cards/ImageCard";
 import SectionHeading from "../../components/sections/SectionHeading";
 import StatCounter from "../../components/sections/StatCounter";
+import AboutSection1 from "../../components/ui/about-section-1";
 import { useGsapReveal } from "../../hooks/useGsapReveal";
 import { brand, images, pathways, stats } from "../../utils/content";
 
@@ -53,7 +58,19 @@ const donationMilestones = [
   [FiCalendar, "20", "Centers planned"]
 ];
 
-const donationMailHref = `mailto:${brand.email}?subject=${encodeURIComponent("Donation support for AnukalpVriksha Foundation")}`;
+const supportChannels = ["UPI", "Bank Transfer", "Cards", "CSR", "In-kind"];
+
+function sanitizeDonationAmount(value) {
+  return value.replace(/[^\d]/g, "");
+}
+
+function donationSupportHref(amount = "", channel = "payment") {
+  const phone = brand.phone.replace(/\D/g, "");
+  const amountText = amount ? ` of Rs. ${amount}` : "";
+  const message = `Namaste, I want to make a ${channel} donation${amountText} to ${brand.name}. Please share payment details.`;
+
+  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+}
 
 const campaigns = [
   {
@@ -106,18 +123,131 @@ const campaigns = [
   }
 ];
 
+const programCards = [
+  {
+    title: "Education for Every Child",
+    text: "Coaching, books, digital learning material, and mentor support for rural students who need consistent academic access.",
+    image: images.classroom,
+    icon: FiBookOpen
+  },
+  {
+    title: "Career Guidance",
+    text: "Scholarship awareness, exam pathways, and confidence-building sessions led by mentors and volunteers.",
+    image: images.mentorship,
+    icon: FiCompass
+  },
+  {
+    title: "Skill Development",
+    text: "Digital literacy, employability readiness, vocational exposure, and entrepreneurship support for youth.",
+    image: images.skills,
+    icon: FiCpu
+  },
+  {
+    title: "Sustainable Villages",
+    text: "Tree planting, local awareness, hygiene habits, and greener community action shaped with village participation.",
+    image: images.sustainability,
+    icon: FiDroplet
+  },
+  {
+    title: "Creative Learning",
+    text: "Creative sessions, classroom activities, and curiosity-led learning moments that keep children engaged.",
+    image: images.creative,
+    icon: FiHeart
+  },
+  {
+    title: "Volunteer Action",
+    text: "Field visits, local campaigns, and hands-on support from people who want to help rural families move forward.",
+    image: images.volunteer,
+    icon: FiUsers
+  }
+];
+
+const approachSteps = [
+  {
+    title: "Connect",
+    text: "We visit villages and engage with people through open conversations and active listening.",
+    icon: FiMessageCircle
+  },
+  {
+    title: "Understand",
+    text: "We assess the real needs, challenges, and opportunities on the ground.",
+    icon: FiSearch
+  },
+  {
+    title: "Collaborate",
+    text: "We work hand-in-hand with communities to co-create practical and sustainable solutions.",
+    icon: FiUsers
+  },
+  {
+    title: "Act",
+    text: "We implement initiatives that empower people and address their most pressing needs.",
+    icon: FiDroplet
+  },
+  {
+    title: "Follow Up",
+    text: "We stay connected, measure progress, and ensure long-term impact.",
+    icon: FiTrendingUp
+  }
+];
+
 function campaignMailHref(title) {
   return `mailto:${brand.email}?subject=${encodeURIComponent(`Campaign donation support: ${title}`)}`;
 }
 
-function DonationSection() {
+function ApproachSection() {
   return (
-    <section className="relative isolate flex min-h-[100svh] overflow-hidden bg-av-ivory py-8 sm:py-10 lg:py-10">
+    <section id="approach" className="relative isolate overflow-hidden bg-av-ivory py-10 sm:py-12 lg:py-14">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff6eb_52%,#fffaf3_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.03)_1px,transparent_1px)] bg-[size:72px_72px] opacity-25" />
+
+      <div className="section-shell">
+        <h2 className="text-center text-2xl font-black leading-tight text-av-green sm:text-3xl">
+          Our Approach
+        </h2>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0">
+          {approachSteps.map(({ title, text, icon: Icon }, index) => (
+            <article
+              className="relative rounded-card border border-av-orange/10 bg-white/72 p-5 text-center shadow-soft lg:rounded-none lg:border-0 lg:bg-transparent lg:px-6 lg:py-0 lg:shadow-none"
+              key={title}
+            >
+              {index > 0 && <span className="absolute left-0 top-0 hidden h-full w-px bg-av-green/14 lg:block" />}
+              {index < approachSteps.length - 1 && (
+                <span className="absolute right-0 top-5 z-10 hidden h-6 w-6 translate-x-1/2 place-items-center rounded-full border-2 border-av-ivory bg-av-green text-av-ivory lg:grid">
+                  <FiChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+                </span>
+              )}
+
+              <span className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-av-green/10 bg-av-leaf/12 text-3xl text-av-green">
+                <Icon aria-hidden="true" />
+              </span>
+              <h3 className="mt-4 text-lg font-black leading-tight text-av-night">
+                {index + 1}. {title}
+              </h3>
+              <p className="mx-auto mt-2 max-w-[14rem] text-xs font-semibold leading-5 text-av-bark/74">
+                {text}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DonationSection() {
+  const [selectedDonation, setSelectedDonation] = useState("500");
+  const [customDonation, setCustomDonation] = useState("");
+  const activeDonation = customDonation || selectedDonation;
+  const donationHref = donationSupportHref(activeDonation);
+
+  return (
+    <section className="relative isolate flex min-h-[100svh] overflow-hidden bg-av-ivory py-8 sm:py-10 lg:py-12">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff1e5_52%,#fffaf3_100%)]" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
-      <div className="section-shell flex min-h-[calc(100svh-4rem)] flex-col justify-center">
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center xl:gap-6">
-          <div className="relative overflow-hidden rounded-card border border-av-orange/10 bg-white/86 p-5 shadow-soft backdrop-blur sm:p-6 lg:p-5 xl:p-6">
+      <div className="flex min-h-[calc(100svh-4rem)] w-full flex-col justify-center px-4 sm:px-6 lg:px-8 2xl:px-10">
+        <div className="mx-auto grid w-full max-w-[1720px] gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center xl:gap-10">
+          <div className="relative min-w-0 overflow-hidden">
             <div className="flex items-center gap-3">
               <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-av-green text-lg text-av-ivory sm:h-11 sm:w-11">
                 <FiHeart />
@@ -142,32 +272,46 @@ function DonationSection() {
             <div className="mt-5">
               <p className="kicker mb-3 text-av-bark/75">Choose Donation Amount</p>
               <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4">
-                {donationAmounts.map(([amount, label], index) => (
-                  <button
-                    className={`min-h-[68px] rounded-card border px-3 py-2.5 text-left transition hover:-translate-y-0.5 hover:border-av-green hover:shadow-soft ${
-                      index === 0 ? "border-av-green bg-av-leaf/10" : "border-av-orange/15 bg-av-ivory"
-                    }`}
-                    key={amount}
-                    type="button"
-                  >
-                    <span className="block text-lg font-black leading-tight text-av-green sm:text-xl xl:text-lg">{amount}</span>
-                    <span className="mt-1 block text-[11px] font-semibold leading-4 text-av-bark/72">{label}</span>
-                  </button>
-                ))}
+                {donationAmounts.map(([amount, label]) => {
+                  const amountValue = sanitizeDonationAmount(amount);
+                  const isActive = !customDonation && selectedDonation === amountValue;
+
+                  return (
+                    <button
+                      className={`min-h-[68px] rounded-card border px-3 py-2.5 text-left transition hover:-translate-y-0.5 hover:border-av-green hover:shadow-soft ${
+                        isActive ? "border-av-green bg-av-leaf/10" : "border-av-orange/15 bg-white/75"
+                      }`}
+                      key={amount}
+                      type="button"
+                      onClick={() => {
+                        setSelectedDonation(amountValue);
+                        setCustomDonation("");
+                      }}
+                    >
+                      <span className="block text-lg font-black leading-tight text-av-green sm:text-xl xl:text-lg">{amount}</span>
+                      <span className="mt-1 block text-[11px] font-semibold leading-4 text-av-bark/72">{label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-1 xl:grid-cols-[minmax(0,1fr)_auto]">
-              <label className="flex min-h-12 min-w-0 items-center rounded-card border border-av-orange/15 bg-av-ivory px-3 text-av-bark/60 sm:px-4">
+              <label className="flex min-h-12 min-w-0 items-center rounded-card border border-av-orange/15 bg-white/75 px-3 text-av-bark/60 sm:px-4">
                 <span className="mr-3 shrink-0 border-r border-av-orange/15 pr-3 text-lg font-black text-av-night sm:mr-4 sm:pr-4 sm:text-xl">Rs.</span>
                 <input
                   className="min-w-0 flex-1 bg-transparent text-sm font-semibold outline-none placeholder:text-av-bark/45"
                   inputMode="numeric"
                   placeholder="Custom amount"
                   type="text"
+                  value={customDonation}
+                  onChange={(event) => {
+                    setCustomDonation(sanitizeDonationAmount(event.target.value));
+                    setSelectedDonation("");
+                  }}
                 />
               </label>
-              <PrimaryButton href={donationMailHref} variant="orange" className="min-h-12 w-full px-6 md:w-auto lg:w-full xl:w-auto xl:px-8" icon={false}>
+              <PrimaryButton href={donationHref} target="_blank" rel="noreferrer" variant="orange" className="min-h-12 w-full px-6 md:w-auto lg:w-full xl:w-auto xl:px-8" icon={false}>
                 Donate Now
               </PrimaryButton>
             </div>
@@ -187,10 +331,16 @@ function DonationSection() {
             <div className="mt-4">
               <p className="kicker mb-2 text-av-bark/75">Support Channels</p>
               <div className="flex flex-wrap gap-2">
-                {["UPI", "Bank Transfer", "Cards", "CSR", "In-kind"].map((item) => (
-                  <span className="rounded-card border border-av-orange/15 bg-white/70 px-3 py-1.5 text-xs font-black text-av-green shadow-soft" key={item}>
+                {supportChannels.map((item) => (
+                  <a
+                    className="rounded-card border border-av-orange/15 bg-white/70 px-3 py-1.5 text-xs font-black text-av-green shadow-soft transition hover:border-av-green hover:bg-av-leaf/10"
+                    href={donationSupportHref(activeDonation, item)}
+                    key={item}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     {item}
-                  </span>
+                  </a>
                 ))}
               </div>
             </div>
@@ -246,6 +396,172 @@ function DonationSection() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function DonationSectionV2() {
+  const [selectedDonation, setSelectedDonation] = useState("500");
+  const [customDonation, setCustomDonation] = useState("");
+  const activeDonation = customDonation || selectedDonation;
+  const donationHref = donationSupportHref(activeDonation);
+
+  return (
+    <section className="relative isolate overflow-hidden bg-av-night py-14 text-av-ivory sm:py-16 lg:py-20">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_12%,rgba(255,138,0,.22),transparent_32%),linear-gradient(135deg,#101807_0%,#19320d_58%,#371006_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.035)_1px,transparent_1px)] bg-[size:72px_72px] opacity-35" />
+
+      <div className="mx-auto grid w-full max-w-[1560px] gap-5 px-4 sm:px-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(410px,.78fr)] lg:px-8 xl:gap-8">
+        <div className="relative min-h-[560px] overflow-hidden rounded-card border border-white/10 bg-av-night shadow-green lg:min-h-[640px]">
+          <img className="absolute inset-0 h-full w-full object-cover" src={images.classroom} alt="Rural students in a learning session" loading="lazy" />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,24,7,.96)_0%,rgba(16,24,7,.8)_44%,rgba(16,24,7,.26)_100%),linear-gradient(180deg,rgba(16,24,7,.18),rgba(16,24,7,.92))]" />
+
+          <div className="relative flex min-h-[560px] flex-col justify-end p-5 sm:p-7 lg:min-h-[640px] lg:p-9 xl:p-10">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-3">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-av-amber text-lg text-av-night shadow-soft">
+                  <FiHeart />
+                </span>
+                <p className="kicker text-av-amber">Make an Impact</p>
+              </div>
+
+              <h2 className="mt-5 max-w-3xl font-display text-[clamp(3.35rem,7vw,6.8rem)] font-light leading-[.94] text-av-ivory">
+                Your donation can change rural lives.
+              </h2>
+              <p className="mt-5 max-w-2xl text-base font-semibold leading-7 text-av-ivory/76 sm:text-lg sm:leading-8">
+                Every contribution brings learning access, mentorship, practical skills, and community-led growth closer to children and families.
+              </p>
+
+              <div className="mt-7 max-w-2xl rounded-card border border-white/10 bg-white/[.07] p-4 backdrop-blur sm:p-5">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="kicker text-av-amber">Annual Learning Fund</p>
+                    <p className="mt-2 text-2xl font-black leading-tight text-av-ivory sm:text-3xl">Rs. 15,00,000 goal</p>
+                  </div>
+                  <span className="w-fit rounded-full bg-av-ivory px-3 py-1 text-xs font-black text-av-green">57% funded</span>
+                </div>
+                <div className="mt-4 h-3 overflow-hidden rounded-full bg-av-ivory/18">
+                  <div className="h-full w-[57%] rounded-full bg-gradient-to-r from-av-amber via-av-orange to-av-red" />
+                </div>
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {donationMilestones.map(([Icon, value, label]) => (
+                    <div className="flex items-center gap-3" key={label}>
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-av-ivory/12 text-lg text-av-amber">
+                        <Icon />
+                      </span>
+                      <span>
+                        <span className="block text-lg font-black text-av-ivory">{value}</span>
+                        <span className="block text-xs font-semibold leading-5 text-av-ivory/64">{label}</span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside className="rounded-card border border-white/10 bg-av-ivory p-5 text-av-night shadow-green sm:p-6 lg:p-7 xl:p-8">
+          <div className="flex items-start justify-between gap-5">
+            <div>
+              <p className="kicker text-av-green">Choose Support</p>
+              <h3 className="mt-3 font-display text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[.96] text-av-night">
+                Give with purpose.
+              </h3>
+            </div>
+            <span className="hidden rounded-full bg-av-green px-4 py-2 text-xs font-black uppercase tracking-[.12em] text-av-ivory sm:inline-flex">
+              Secure
+            </span>
+          </div>
+
+          <div className="mt-6 flex max-w-full flex-wrap items-center gap-x-3 gap-y-2 rounded-card bg-av-leaf/12 px-3 py-2.5 text-xs font-black leading-5 text-av-green sm:inline-flex sm:px-4">
+            <FiShield className="text-lg" />
+            <span>Secure conversation with the team</span>
+            <span className="hidden h-1.5 w-1.5 rounded-full bg-av-green/45 sm:block" />
+            <span>Program-first support</span>
+          </div>
+
+          <div className="mt-7">
+            <p className="kicker mb-3 text-av-bark/75">Donation Amount</p>
+            <div className="grid grid-cols-2 gap-2">
+              {donationAmounts.map(([amount, label]) => {
+                const amountValue = sanitizeDonationAmount(amount);
+                const isActive = !customDonation && selectedDonation === amountValue;
+
+                return (
+                  <button
+                    className={`min-h-[76px] rounded-card border px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-av-green hover:shadow-soft ${
+                      isActive ? "border-av-green bg-av-leaf/10" : "border-av-orange/15 bg-white/78"
+                    }`}
+                    key={amount}
+                    type="button"
+                    onClick={() => {
+                      setSelectedDonation(amountValue);
+                      setCustomDonation("");
+                    }}
+                  >
+                    <span className="block text-xl font-black leading-tight text-av-green">{amount}</span>
+                    <span className="mt-1 block text-xs font-semibold leading-4 text-av-bark/72">{label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="mt-3 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]">
+            <label className="flex min-h-[3.25rem] min-w-0 items-center rounded-card border border-av-orange/15 bg-white/78 px-3 text-av-bark/60 sm:px-4">
+              <span className="mr-3 shrink-0 border-r border-av-orange/15 pr-3 text-xl font-black text-av-night sm:mr-4 sm:pr-4">Rs.</span>
+              <input
+                className="min-w-0 flex-1 bg-transparent text-sm font-semibold outline-none placeholder:text-av-bark/45"
+                inputMode="numeric"
+                placeholder="Custom amount"
+                type="text"
+                value={customDonation}
+                onChange={(event) => {
+                  setCustomDonation(sanitizeDonationAmount(event.target.value));
+                  setSelectedDonation("");
+                }}
+              />
+            </label>
+            <PrimaryButton href={donationHref} target="_blank" rel="noreferrer" variant="orange" className="min-h-[3.25rem] w-full px-8 sm:w-auto" icon={false}>
+              Donate Now
+            </PrimaryButton>
+          </div>
+
+          <div className="mt-5 grid gap-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+            {donationSignals.map(([Icon, title, text]) => (
+              <div className="flex gap-2 rounded-card bg-av-leaf/10 p-3" key={title}>
+                <Icon className="mt-0.5 shrink-0 text-lg text-av-green" />
+                <div>
+                  <p className="text-sm font-black text-av-night">{title}</p>
+                  <p className="mt-0.5 text-[11px] font-semibold leading-4 text-av-bark/68">{text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-6">
+            <p className="kicker mb-3 text-av-bark/75">Payment Channels</p>
+            <div className="flex flex-wrap gap-2">
+              {supportChannels.map((item) => (
+                <a
+                  className="rounded-full border border-av-orange/15 bg-white/78 px-4 py-2 text-xs font-black text-av-green shadow-soft transition hover:border-av-green hover:bg-av-leaf/10"
+                  href={donationSupportHref(activeDonation, item)}
+                  key={item}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <p className="mt-6 rounded-card bg-av-night px-4 py-3 text-center text-sm font-black leading-6 text-av-ivory">
+            Together, we can build a better tomorrow.
+          </p>
+        </aside>
       </div>
     </section>
   );
@@ -369,6 +685,75 @@ function CampaignsSection() {
   );
 }
 
+function CampaignsSectionV2() {
+  return (
+    <section id="campaigns" className="relative isolate overflow-hidden bg-av-ivory py-16 sm:py-20 lg:py-24">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf3_0%,#fff1e5_48%,#fffaf3_100%)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(36,68,14,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(36,68,14,.045)_1px,transparent_1px)] bg-[size:72px_72px] opacity-45" />
+
+      <div className="section-shell">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,420px)_minmax(0,760px)] lg:items-start lg:justify-between">
+          <div>
+            <div className="mb-4 flex items-center gap-4 text-av-orange">
+              <p className="kicker text-av-orange">Help Us</p>
+              <span className="h-px w-12 bg-av-orange/70" />
+            </div>
+            <h2 className="display-title text-[clamp(3.2rem,7vw,6rem)] text-av-night">
+              Our Campaigns
+            </h2>
+          </div>
+
+          <p className="body-lead max-w-3xl text-av-bark/72 lg:pt-12">
+            We work with rural learners, families, and volunteers to create practical support systems for education, skills, mentorship, and sustainable village growth.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {programCards.map(({ title, text, image, icon: Icon }) => (
+            <article
+              className="group flex min-h-[485px] flex-col overflow-hidden rounded-card border border-av-orange/10 bg-white/86 p-5 shadow-soft backdrop-blur transition duration-300 hover:-translate-y-1 hover:shadow-green"
+              key={title}
+            >
+              <div className="relative">
+                <div className="overflow-hidden rounded-card border border-av-orange/10 bg-av-night">
+                  <img
+                    className="aspect-[1.55/1] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                    src={image}
+                    alt={title}
+                    loading="lazy"
+                  />
+                </div>
+                <span className="absolute -bottom-7 right-4 grid h-16 w-16 place-items-center rounded-full border-[6px] border-white bg-av-orange text-2xl text-av-ivory shadow-soft">
+                  <Icon />
+                </span>
+              </div>
+
+              <div className="flex flex-1 flex-col pt-11">
+                <h3 className="text-xl font-black leading-tight text-av-night">{title}</h3>
+                <p className="mt-4 text-sm font-semibold leading-7 text-av-bark/72">
+                  {text}
+                </p>
+
+                <a
+                  className="mt-auto grid min-h-14 grid-cols-[minmax(0,1fr)_4.5rem] overflow-hidden rounded-card border border-av-orange/10 bg-av-cream text-sm font-black text-av-green transition hover:border-av-green"
+                  href={donationSupportHref("", title)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <span className="flex items-center px-5">Learn More</span>
+                  <span className="grid place-items-center bg-av-green text-xl text-av-ivory transition group-hover:bg-av-orange">
+                    <FiArrowRight />
+                  </span>
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const scope = useRef(null);
   const heroVideoRef = useRef(null);
@@ -391,24 +776,24 @@ export default function Home() {
 
   return (
     <main ref={scope}>
-      <section className="relative min-h-[100svh] overflow-hidden bg-av-night text-av-ivory">
-        <video ref={heroVideoRef} className="absolute inset-0 h-full w-full object-cover object-center opacity-90 md:object-contain md:opacity-75" autoPlay muted loop playsInline preload="metadata">
+      <section className="relative h-[100svh] min-h-[100svh] overflow-hidden bg-av-night text-av-ivory">
+        <video ref={heroVideoRef} className="absolute inset-0 h-full w-full object-cover object-center opacity-95" autoPlay muted loop playsInline preload="metadata">
           <source src={brand.heroVideo} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,24,7,.1)_0%,rgba(16,24,7,.16)_34%,rgba(16,24,7,.54)_62%,rgba(16,24,7,.94)_100%)] md:bg-[linear-gradient(90deg,rgba(16,24,7,.9),rgba(16,24,7,.42)_58%,rgba(16,24,7,.78)),linear-gradient(180deg,rgba(16,24,7,.18),rgba(16,24,7,.78))]" />
         <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-av-night via-av-night/72 to-transparent md:hidden" />
 
-        <div className="section-shell relative flex min-h-[100svh] items-end pb-7 pt-28 md:hidden">
+        <div className="relative flex min-h-[100svh] items-end px-4 pb-7 pt-28 md:hidden">
           <div className="w-full">
-            <h1 className="max-w-[22rem] font-display text-[clamp(3rem,13.4vw,4.9rem)] font-light leading-[.96] text-av-ivory [text-wrap:balance] drop-shadow-[0_8px_28px_rgba(0,0,0,.45)]">
+            <h1 className="max-w-[19rem] font-display text-[clamp(2.35rem,10.5vw,3.6rem)] font-light leading-[.98] text-av-ivory [text-wrap:balance] drop-shadow-[0_8px_28px_rgba(0,0,0,.45)]">
               Advancing rural learning, skills, and sustainable growth
             </h1>
-            <div className="mt-8 grid grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3 [&>div]:w-full">
-              <PrimaryButton to="/stories" variant="light" className="min-h-16 w-full px-8 text-lg font-extrabold" icon={false}>
+            <div className="mt-6 grid grid-cols-[minmax(0,1fr)_3.75rem] items-center gap-3 [&>div]:w-full">
+              <PrimaryButton to="/stories" variant="light" className="min-h-12 w-full px-7 text-sm font-extrabold" icon={false}>
                 Learn More
               </PrimaryButton>
               <button
-                className="grid h-16 w-16 place-items-center rounded-full border border-white/12 bg-av-night/82 text-3xl text-av-ivory shadow-green backdrop-blur-md transition hover:bg-av-green"
+                className="grid h-14 w-14 place-items-center rounded-full border border-white/12 bg-av-night/82 text-2xl text-av-ivory shadow-green backdrop-blur-md transition hover:bg-av-green"
                 type="button"
                 aria-label={heroPaused ? "Play hero video" : "Pause hero video"}
                 onClick={toggleHeroVideo}
@@ -419,20 +804,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="section-shell relative hidden min-h-[100svh] items-center pb-12 pt-32 md:flex">
-          <div className="max-w-6xl">
-            <p className="kicker mb-5 text-av-amber">Every Rural Life Matters</p>
-            <h1 className="display-title max-w-6xl text-[clamp(2.75rem,4.8vw,4.6rem)] text-av-ivory">
+        <div className="relative hidden min-h-[100svh] items-end px-8 pb-[clamp(2.75rem,8vh,5rem)] pt-32 lg:px-10 md:flex">
+          <div className="max-w-[50rem]">
+            <h1 className="display-title max-w-[50rem] text-[clamp(2.6rem,3.6vw,4rem)] text-av-ivory drop-shadow-[0_8px_28px_rgba(0,0,0,.34)]">
               <span className="block">Empowering rural youth</span>
               <span className="block">through education, skills,</span>
               <span className="block">and sustainable growth.</span>
             </h1>
-            <p className="body-lead mt-6 max-w-2xl text-av-ivory/78">
-              A focused movement for learning access, mentorship, practical skills, and village-led development.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <PrimaryButton to="/stories" variant="light">Explore Impact</PrimaryButton>
-              <PrimaryButton to="/become-volunteer" variant="outline" className="border-white/35 text-av-ivory hover:border-av-orange">Volunteer</PrimaryButton>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <PrimaryButton to="/stories" variant="light" className="min-h-12 min-w-[13rem] px-8 text-sm" icon={false}>Learn More</PrimaryButton>
             </div>
           </div>
         </div>
@@ -446,9 +826,13 @@ export default function Home() {
         </div>
       </section>
 
-      <DonationSection />
+      <AboutSection1 />
 
-      <CampaignsSection />
+      <ApproachSection />
+
+      <DonationSectionV2 />
+
+      <CampaignsSectionV2 />
 
       <section className="page-section bg-av-ivory/50">
         <div className="section-shell">
@@ -505,20 +889,12 @@ export default function Home() {
                   <div className={`gallery-marquee-track ${rowIndex === 1 ? "gallery-marquee-track--reverse" : ""}`}>
                     {[0, 1].map((copy) => (
                       <div className="gallery-marquee-set" aria-hidden={copy === 1} key={`gallery-copy-${rowIndex}-${copy}`}>
-                        {row.map(([tag, title, image]) => (
+                        {row.map(([, title, image]) => (
                           <article
                             className="group relative h-[220px] w-[250px] shrink-0 overflow-hidden rounded-card bg-av-night shadow-soft sm:w-[292px] md:h-[244px] lg:w-[320px]"
                             key={`${title}-${rowIndex}-${copy}`}
                           >
                             <img className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]" src={image} alt={title} loading="lazy" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-av-night/88 via-av-night/20 to-transparent" />
-                            <div className="absolute bottom-0 left-0 right-0 p-5 text-av-ivory">
-                              <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-av-orange px-3 py-1 text-[10px] font-black uppercase tracking-[.16em]">
-                                <FiCamera />
-                                {tag}
-                              </span>
-                              <h3 className="font-display text-3xl leading-none md:text-4xl">{title}</h3>
-                            </div>
                           </article>
                         ))}
                       </div>
