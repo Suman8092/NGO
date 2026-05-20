@@ -22,7 +22,6 @@ import {
 import Reveal from "../../components/animations/Reveal";
 import PrimaryButton from "../../components/buttons/PrimaryButton";
 import GlassCard from "../../components/cards/GlassCard";
-import ImageCard from "../../components/cards/ImageCard";
 import SectionHeading from "../../components/sections/SectionHeading";
 import StatCounter from "../../components/sections/StatCounter";
 import AboutSection1 from "../../components/ui/about-section-1";
@@ -197,12 +196,12 @@ function campaignMailHref(title) {
 
 function ApproachSection() {
   return (
-    <section id="approach" className="relative isolate overflow-hidden bg-av-ivory py-10 sm:py-12 lg:py-14">
+    <section id="approach" className="relative isolate overflow-hidden bg-av-ivory py-10 sm:py-12 lg:py-12">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,#fffaf6_0%,#fff2e8_52%,#fffaf6_100%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.03)_1px,transparent_1px)] bg-[size:72px_72px] opacity-25" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(13,13,13,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(13,13,13,.025)_1px,transparent_1px)] bg-[size:72px_72px] opacity-20" />
 
       <div className="section-shell">
-        <h2 className="text-center text-2xl font-black leading-tight text-av-green sm:text-3xl">
+        <h2 className="text-center text-2xl font-black leading-tight text-av-night sm:text-3xl">
           Our Approach
         </h2>
 
@@ -212,14 +211,14 @@ function ApproachSection() {
               className="relative rounded-card border border-av-orange/10 bg-white/72 p-5 text-center shadow-soft lg:rounded-none lg:border-0 lg:bg-transparent lg:px-6 lg:py-0 lg:shadow-none"
               key={title}
             >
-              {index > 0 && <span className="absolute left-0 top-0 hidden h-full w-px bg-av-green/14 lg:block" />}
+              {index > 0 && <span className="absolute left-0 top-0 hidden h-full w-px bg-av-night/10 lg:block" />}
               {index < approachSteps.length - 1 && (
-                <span className="absolute right-0 top-5 z-10 hidden h-6 w-6 translate-x-1/2 place-items-center rounded-full border-2 border-av-ivory bg-av-green text-av-ivory lg:grid">
+                <span className="absolute right-0 top-5 z-10 hidden h-6 w-6 translate-x-1/2 place-items-center rounded-full border-2 border-av-ivory bg-av-orange text-av-ivory lg:grid">
                   <FiChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
                 </span>
               )}
 
-              <span className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-av-green/10 bg-av-leaf/12 text-3xl text-av-green">
+              <span className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-av-night/10 bg-av-orange/8 text-3xl text-av-night">
                 <Icon aria-hidden="true" />
               </span>
               <h3 className="mt-4 text-lg font-black leading-tight text-av-night">
@@ -923,7 +922,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="page-section bg-av-night text-av-ivory">
+      <section className="relative isolate overflow-hidden bg-av-night py-16 text-av-ivory sm:py-20 lg:py-24">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_78%_18%,rgba(255,108,25,.14),transparent_30%),linear-gradient(180deg,#0D0D0D_0%,#0D0D0D_72%,#170707_100%)]" />
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30" />
+
         <div className="section-shell">
           <SectionHeading
             kicker="Impact Areas"
@@ -931,10 +933,37 @@ export default function Home() {
             text="Education, mentorship, skills, and community action work best when they reinforce each other."
             className="[&_h2]:text-av-ivory [&_p]:text-av-ivory/70 [&_.kicker]:text-av-amber"
           />
-          <div className="mt-10 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-            {pathways.map((item) => (
-              <ImageCard key={item.title} {...item} />
-            ))}
+
+          <div className="mt-10 overflow-hidden rounded-card bg-av-night shadow-green">
+            <div className="grid lg:grid-cols-4">
+              {pathways.map((item, index) => (
+                <article
+                  className="group relative min-h-[340px] overflow-hidden lg:min-h-[430px]"
+                  key={item.title}
+                >
+                  <img
+                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,13,13,.08)_0%,rgba(13,13,13,.38)_44%,rgba(13,13,13,.9)_100%)] transition duration-300 group-hover:bg-[linear-gradient(180deg,rgba(13,13,13,.04)_0%,rgba(13,13,13,.28)_42%,rgba(13,13,13,.86)_100%)]" />
+                  {index > 0 && <span className="absolute left-0 top-8 hidden h-[calc(100%-4rem)] w-px bg-white/16 lg:block" />}
+
+                  <div className="relative z-10 flex min-h-[340px] flex-col justify-end p-5 sm:p-6 lg:min-h-[430px] lg:p-7">
+                    <span className="mb-4 w-fit rounded-full bg-av-orange px-3 py-1 text-[10px] font-black uppercase tracking-[.16em] text-av-ivory">
+                      {item.tag}
+                    </span>
+                    <h3 className="max-w-[13rem] font-display text-[2.45rem] leading-[.9] text-av-ivory sm:text-5xl lg:text-[2.7rem]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 max-w-[17rem] text-sm font-semibold leading-6 text-av-ivory/78">
+                      {item.text}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </section>
